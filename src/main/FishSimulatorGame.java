@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import containers.GameFrame;
+import handlers.GameObjectHolder;
+import handlers.GameObjectLoader;
 import handlers.ImageAsset;
 import handlers.ImageHolder;
 import handlers.ImageLoader;
@@ -66,6 +68,10 @@ public class FishSimulatorGame {
 	public void render() {
 		frame.repaint();
 	}
+	
+	public void tick() {
+		frame.tick();
+	}
 
 	/**
 	 * Loads assets from the specified CSV
@@ -75,6 +81,7 @@ public class FishSimulatorGame {
 	private void loadAssets() throws IOException {
 
 		ImageHolder.initialize(); // empty image holder
+		GameObjectHolder.initialize();
 
 		// create resource streams
 		File assets = new File(ASSETS);
@@ -82,7 +89,8 @@ public class FishSimulatorGame {
 
 		while (in.hasNext()) {
 			// iterate through csv
-			ImageHolder.add(ImageLoader.load(in.nextLine()));
+			String csvLine = in.nextLine();
+			GameObjectHolder.add(GameObjectLoader.loadGameObject(csvLine));
 		}
 
 		in.close(); // close resource stream

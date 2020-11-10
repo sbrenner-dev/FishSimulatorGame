@@ -6,8 +6,8 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import handlers.ImageAsset;
-import handlers.ImageHolder;
+import handlers.GameObjectHolder;
+import models.GameObject;
 
 /**
  * An extension of {@link JPanel}, such that it can be drawn to a
@@ -26,20 +26,45 @@ public class GameCanvas extends JPanel {
 	 */
 	private static final long serialVersionUID = -7602354264395158328L;
 
+	private GameFrame parent;
+
+	public GameCanvas(GameFrame parent) {
+		this.parent = parent;
+	}
+	
+	public GameFrame getParent() {
+		return this.parent;
+	}
+
 	/**
 	 * Paints components to this {@link GameCanvas}
 	 * 
 	 * @param g Graphics component to paint to this {@link GameCanvas}
 	 */
 	@Override
-	public void paint(Graphics g) {
-		Iterator<ImageAsset> imgItr = ImageHolder.getIterator(); // obtain iterator
-		while (imgItr.hasNext()) {
-			ImageAsset img = imgItr.next();
-			if (!img.isImmutable() ^ !img.drawn()) { // image is either not immutable or not drawn, not both
-				g.drawImage(img.getImage(), 0, 0, null); // might have to fiddle with the x, y here
-			}
+	public void paintComponent(Graphics g) {
+		clean();
+//		g.setColor(Color.white);
+//		g.fillRect(0, 0, FishSimulatorGame.WIDTH, FishSimulatorGame.HEIGHT);
+		Iterator<GameObject> itr = GameObjectHolder.getIterator();
+		while (itr.hasNext()) {
+			GameObject gObj = itr.next();
+			gObj.draw(g);
 		}
+	}
+
+	public void tick() {
+		clean();
+		Iterator<GameObject> itr = GameObjectHolder.getIterator();
+		while (itr.hasNext()) {
+			GameObject gObj = itr.next();
+			gObj.tick();
+		}
+	}
+	
+	private void clean() {
+		System.gc();
+		this.removeAll();
 	}
 
 }

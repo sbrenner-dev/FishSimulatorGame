@@ -41,18 +41,23 @@ public class GameFrame extends JFrame {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		canvas.paint(g);
+		canvas.repaint();
+	}
+
+	public void tick() {
+		canvas.tick();
 	}
 
 	/**
 	 * Initializes this frame, including size, canvas, and visibility
 	 */
 	private void init() {
-		this.canvas = new GameCanvas();
+		this.canvas = new GameCanvas(this);
 		this.add(canvas);
 		this.setSize(new Dimension(FishSimulatorGame.WIDTH, FishSimulatorGame.HEIGHT));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.requestFocus();
 	}

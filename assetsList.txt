@@ -1,1 +1,6 @@
-background.jpg, true
+0, Background, assets/background.jpg, 0, 0, 1024, 576
+1, Fish, assets/fish.jpg, 50, 50, 150, 100
+2, Background, assets/plant.png, 20, 76, 50, 500
+0, Background, assets/plant.png, 200, 376, 50, 200
+0, Background, assets/plant.png, 900, 76, 50, 500
+2, Background, assets/plant.png, 540, 276, 50, 300

@@ -36,8 +36,9 @@ public class GameRunner extends Thread {
 	public void run() {
 		while (true) {
 			game.render();
+			game.tick();
 			try {
-				Thread.sleep(100); // light sleep for frame updating
+				Thread.sleep(40); // light sleep for frame updating
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

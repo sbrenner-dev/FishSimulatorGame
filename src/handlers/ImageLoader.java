@@ -36,7 +36,7 @@ public class ImageLoader {
 	private static ImageAsset loadImageAsset(String csvLine) throws IOException {
 		String[] csv = csvLine.split(", "); // construct array from values
 		// form ImageAsset objecct from image and immutability value
-		return new ImageAsset(ImageIO.read(new File(csv[0])), Boolean.parseBoolean(csv[1]));
+		return new ImageAsset(ImageIO.read(new File(csv[0])));
 	}
 
 }
